@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+    node:
+        container_name: nginx-docker-node
+        image: node:8.14.0-jessie
+        ports:
+            - "3618:80"
+        volumes:
+            - ./node/:/opt/app/
+        working_dir: '/opt/app/'
+        command: node ./server.js
+    python:
+        container_name: nginx-docker-python
+        image: python:3.7.1-stretch
+        ports:
+            - "3620:80"
+        volumes:
+            - ./python:/opt/app/
+        working_dir: '/opt/app/'
+        command: python3 -m http.server 80 --bind 0.0.0.0
+    php:
+        container_name: nginx-docker-php
+        image: php:7.2.12-apache-stretch
+        ports:
+            - "3622:80"
+        volumes:
+            - ./php:/var/www/html/
+        working_dir: '/var/www/html/'
